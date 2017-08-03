@@ -4,6 +4,7 @@ import io.opentracing.ActiveSpan;
 import io.opentracing.Span;
 import io.opentracing.SpanContext;
 import io.opentracing.Tracer;
+import io.opentracing.tag.Tags;
 import io.opentracing.util.GlobalTracer;
 
 import javax.interceptor.AroundInvoke;
@@ -26,6 +27,7 @@ public class OpenTracingInterceptor {
 
         Tracer tracer = GlobalTracer.get();
         Tracer.SpanBuilder spanBuilder = tracer.buildSpan(ctx.getMethod().getName());
+        spanBuilder.withTag(Tags.COMPONENT.getKey(), getComponent());
 
         int contextParameterIndex = -1;
         for (int i = 0 ; i < ctx.getParameters().length ; i++) {
@@ -66,5 +68,9 @@ public class OpenTracingInterceptor {
 
             return ctx.proceed();
         }
+    }
+
+    public String getComponent() {
+        return "ejb";
     }
 }
