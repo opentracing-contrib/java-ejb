@@ -60,7 +60,7 @@ otherwise Jaeger will complain. A good set for development and testing purposes
 is the following:
 
 ```
-export JAEGER_SERVICE_NAME=swarm-opentracing-servlet-example
+export JAEGER_SERVICE_NAME=opentracing-ejb-example
 export JAEGER_REPORTER_LOG_SPANS=true 
 export JAEGER_SAMPLER_TYPE=const
 export JAEGER_SAMPLER_PARAM=1 
@@ -78,14 +78,14 @@ curl -v -X POST localhost:8080/opentracing-ejb-example/v1/order
 
 If everything works as expected, the following can be seen on the logs:
 ```
-15:23:41,115 INFO  [io.opentracing.contrib.ejb.example.Endpoint] (default task-3) Request received to place an order
-15:23:41,117 INFO  [io.opentracing.contrib.ejb.example.AccountService] (default task-3) Notifying the account owner about a new order
-15:23:41,118 INFO  [com.uber.jaeger.reporters.LoggingReporter] (default task-3) Span reported: 267358941d480ea6:e6887897ff751d87:267358941d480ea6:1 - sendNotification
-15:23:41,121 INFO  [io.opentracing.contrib.ejb.example.OrderService] (default task-3) Placing order
-15:23:41,124 INFO  [com.uber.jaeger.reporters.LoggingReporter] (default task-3) Span reported: 267358941d480ea6:5243b92429096623:267358941d480ea6:1 - placeOrder
-15:23:41,125 INFO  [com.uber.jaeger.reporters.LoggingReporter] (default task-3) Span reported: 267358941d480ea6:267358941d480ea6:0:1 - placeOrder
-15:23:41,126 INFO  [io.opentracing.contrib.ejb.example.InventoryService] (EJB default - 1) Changing the inventory
-15:23:41,129 INFO  [com.uber.jaeger.reporters.LoggingReporter] (EJB default - 1) Span reported: 267358941d480ea6:3f6568012f9fceae:5243b92429096623:1 - changeInventory
-15:23:41,131 INFO  [io.opentracing.contrib.ejb.example.InventoryNotificationService] (EJB default - 2) Sending an inventory change notification
-15:23:41,134 INFO  [com.uber.jaeger.reporters.LoggingReporter] (EJB default - 2) Span reported: 267358941d480ea6:9a4a5391723d4099:3f6568012f9fceae:1 - sendNotification
+2017-10-11 16:01:07,418 INFO  [io.opentracing.contrib.ejb.example.Endpoint] (default task-1) Request received to place an order
+2017-10-11 16:01:07,419 INFO  [io.opentracing.contrib.ejb.example.AccountService] (default task-1) Notifying the account owner about a new order
+2017-10-11 16:01:07,420 INFO  [com.uber.jaeger.reporters.LoggingReporter] (default task-1) Span reported: 900e20a8db743a38:bfd01ed2a14cdf61:900e20a8db743a38:1 - sendNotification
+2017-10-11 16:01:07,422 INFO  [io.opentracing.contrib.ejb.example.OrderService] (default task-1) Placing order
+2017-10-11 16:01:07,425 INFO  [com.uber.jaeger.reporters.LoggingReporter] (default task-1) Span reported: 900e20a8db743a38:52fc86943e8112f:900e20a8db743a38:1 - processOrderPlacement
+2017-10-11 16:01:07,425 INFO  [com.uber.jaeger.reporters.LoggingReporter] (default task-1) Span reported: 900e20a8db743a38:900e20a8db743a38:0:1 - placeOrder
+2017-10-11 16:01:07,427 INFO  [io.opentracing.contrib.ejb.example.InventoryService] (EJB default - 1) Changing the inventory
+2017-10-11 16:01:07,428 INFO  [com.uber.jaeger.reporters.LoggingReporter] (EJB default - 1) Span reported: 900e20a8db743a38:fb6c6b4d0dbccae:52fc86943e8112f:1 - changeInventory
+2017-10-11 16:01:07,429 INFO  [io.opentracing.contrib.ejb.example.InventoryNotificationService] (EJB default - 2) Sending an inventory change notification
+2017-10-11 16:01:07,430 INFO  [com.uber.jaeger.reporters.LoggingReporter] (EJB default - 2) Span reported: 900e20a8db743a38:8d3fe234bcbdec3e:fb6c6b4d0dbccae:1 - sendNotification
 ```

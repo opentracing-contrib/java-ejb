@@ -1,6 +1,6 @@
 package io.opentracing.contrib.ejb;
 
-import io.opentracing.ActiveSpan;
+import io.opentracing.Scope;
 import io.opentracing.Span;
 import io.opentracing.SpanContext;
 import io.opentracing.Tracer;
@@ -57,13 +57,13 @@ public class OpenTracingInterceptor {
             }
         }
 
-        try (ActiveSpan span = spanBuilder.startActive()) {
+        try (Scope scope = spanBuilder.startActive()) {
             log.fine("Adding span context into the invocation context.");
-            ctx.getContextData().put(SPAN_CONTEXT, span.context());
+            ctx.getContextData().put(SPAN_CONTEXT, scope.span().context());
 
             if (contextParameterIndex >= 0) {
                 log.fine("Overriding the original span context with our new context.");
-                ctx.getParameters()[contextParameterIndex] = span.context();
+                ctx.getParameters()[contextParameterIndex] = scope.span().context();
             }
 
             return ctx.proceed();

@@ -9,7 +9,7 @@
   </parent>
 
   <properties>
-    <version.jaeger>0.20.0</version.jaeger>
+    <version.jaeger>0.22.0-RC1</version.jaeger>
   </properties>
 
   <name>OpenTracing - EJB - Example</name>
