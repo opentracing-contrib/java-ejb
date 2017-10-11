@@ -4,7 +4,7 @@
 
   <groupId>io.opentracing.contrib</groupId>
   <artifactId>opentracing-ejb-parent</artifactId>
-  <version>0.0.5-SNAPSHOT</version>
+  <version>0.0.5</version>
   <packaging>pom</packaging>
 
   <name>OpenTracing - EJB - Parent</name>
@@ -15,7 +15,7 @@
     <url>https://github.com/opentracing-contrib/java-ejb</url>
     <connection>scm:git:https://github.com/opentracing-contrib/java-ejb.git</connection>
     <developerConnection>scm:git:https://github.com/opentracing-contrib/java-ejb.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>0.0.5</tag>
   </scm>
 
   <licenses>
@@ -59,7 +59,7 @@
       <dependency>
         <groupId>io.opentracing.contrib</groupId>
         <artifactId>opentracing-ejb</artifactId>
-        <version>0.0.5-SNAPSHOT</version>
+        <version>0.0.5</version>
       </dependency>
 
       <dependency>
