@@ -28,6 +28,7 @@ public class OpenTracingInterceptor {
         Tracer tracer = GlobalTracer.get();
         Tracer.SpanBuilder spanBuilder = tracer.buildSpan(ctx.getMethod().getName());
         spanBuilder.withTag(Tags.COMPONENT.getKey(), getComponent());
+        spanBuilder.withTag(getBeanTagName(), ctx.getTarget().getClass().getName());
 
         int contextParameterIndex = -1;
         for (int i = 0 ; i < ctx.getParameters().length ; i++) {
@@ -72,5 +73,9 @@ public class OpenTracingInterceptor {
 
     public String getComponent() {
         return "ejb";
+    }
+
+    public String getBeanTagName() {
+        return getComponent() + ".bean";
     }
 }
