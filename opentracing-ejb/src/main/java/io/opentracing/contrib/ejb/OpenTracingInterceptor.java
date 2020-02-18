@@ -6,19 +6,16 @@ import io.opentracing.SpanContext;
 import io.opentracing.Tracer;
 import io.opentracing.tag.Tags;
 import io.opentracing.util.GlobalTracer;
-
 import java.io.Serializable;
-import javax.inject.Inject;
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.Interceptor;
-import javax.interceptor.InvocationContext;
 import java.util.logging.Logger;
+import javax.interceptor.AroundInvoke;
+import javax.interceptor.InvocationContext;
 
 /**
  * @author Juraci Paixão Kröhling
  */
-@Interceptor
 public class OpenTracingInterceptor implements Serializable {
+
     public static final String SPAN_CONTEXT = "__opentracing_span_context";
     private static final Logger log = Logger.getLogger(OpenTracingInterceptor.class.getName());
 
@@ -35,7 +32,7 @@ public class OpenTracingInterceptor implements Serializable {
         spanBuilder.withTag(getBeanTagName(), ctx.getTarget().getClass().getName());
 
         int contextParameterIndex = -1;
-        for (int i = 0 ; i < ctx.getParameters().length ; i++) {
+        for (int i = 0; i < ctx.getParameters().length; i++) {
             Object parameter = ctx.getParameters()[i];
             if (parameter instanceof SpanContext) {
                 log.fine("Found parameter as span context. Using it as the parent of this new span");
@@ -73,7 +70,8 @@ public class OpenTracingInterceptor implements Serializable {
             }
 
             return ctx.proceed();
-        } finally {
+        }
+        finally {
             span.finish();
         }
     }
