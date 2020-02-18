@@ -7,14 +7,18 @@ import io.opentracing.Tracer;
 import io.opentracing.tag.Tags;
 import io.opentracing.util.GlobalTracer;
 
+import java.io.Serializable;
+import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
+import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import java.util.logging.Logger;
 
 /**
  * @author Juraci Paixão Kröhling
  */
-public class OpenTracingInterceptor {
+@Interceptor
+public class OpenTracingInterceptor implements Serializable {
     public static final String SPAN_CONTEXT = "__opentracing_span_context";
     private static final Logger log = Logger.getLogger(OpenTracingInterceptor.class.getName());
 
@@ -69,6 +73,8 @@ public class OpenTracingInterceptor {
             }
 
             return ctx.proceed();
+        } finally {
+            span.finish();
         }
     }
 
