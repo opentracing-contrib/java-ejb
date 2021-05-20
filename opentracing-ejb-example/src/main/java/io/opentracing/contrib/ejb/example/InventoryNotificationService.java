@@ -21,7 +21,7 @@ public class InventoryNotificationService {
     private static final Logger log = Logger.getLogger(InventoryNotificationService.class.getName());
 
     public void sendNotification(SpanContext context) {
-        Span span = GlobalTracer.get().buildSpan("sendNotification").asChildOf(context).startManual();
+        Span span = GlobalTracer.get().buildSpan("sendNotification").asChildOf(context).start();
         log.info("Sending an inventory change notification");
         span.finish();
     }

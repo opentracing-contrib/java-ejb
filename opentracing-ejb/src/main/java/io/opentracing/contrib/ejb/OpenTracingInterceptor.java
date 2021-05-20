@@ -6,15 +6,16 @@ import io.opentracing.SpanContext;
 import io.opentracing.Tracer;
 import io.opentracing.tag.Tags;
 import io.opentracing.util.GlobalTracer;
-
+import java.io.Serializable;
+import java.util.logging.Logger;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
-import java.util.logging.Logger;
 
 /**
  * @author Juraci Paixão Kröhling
  */
-public class OpenTracingInterceptor {
+public class OpenTracingInterceptor implements Serializable {
+
     public static final String SPAN_CONTEXT = "__opentracing_span_context";
     private static final Logger log = Logger.getLogger(OpenTracingInterceptor.class.getName());
 
@@ -31,7 +32,7 @@ public class OpenTracingInterceptor {
         spanBuilder.withTag(getBeanTagName(), ctx.getTarget().getClass().getName());
 
         int contextParameterIndex = -1;
-        for (int i = 0 ; i < ctx.getParameters().length ; i++) {
+        for (int i = 0; i < ctx.getParameters().length; i++) {
             Object parameter = ctx.getParameters()[i];
             if (parameter instanceof SpanContext) {
                 log.fine("Found parameter as span context. Using it as the parent of this new span");
@@ -58,16 +59,20 @@ public class OpenTracingInterceptor {
             }
         }
 
-        try (Scope scope = spanBuilder.startActive(true)) {
+        Span span = spanBuilder.start();
+        try (Scope scope = tracer.activateSpan(span)) {
             log.fine("Adding span context into the invocation context.");
-            ctx.getContextData().put(SPAN_CONTEXT, scope.span().context());
+            ctx.getContextData().put(SPAN_CONTEXT, span.context());
 
             if (contextParameterIndex >= 0) {
                 log.fine("Overriding the original span context with our new context.");
-                ctx.getParameters()[contextParameterIndex] = scope.span().context();
+                ctx.getParameters()[contextParameterIndex] = span.context();
             }
 
             return ctx.proceed();
+        }
+        finally {
+            span.finish();
         }
     }
 
