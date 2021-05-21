@@ -84,13 +84,10 @@
 
   <distributionManagement>
     <repository>
-      <id>bintray</id>
-      <url>https://api.bintray.com/maven/opentracing/maven/opentracing-ejb/;publish=1</url>
+      <id>ossrh</id>
+      <name>Central Repository OSSRH</name>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
-    <snapshotRepository>
-      <id>jfrog-snapshots</id>
-      <url>http://oss.jfrog.org/artifactory/oss-snapshot-local</url>
-    </snapshotRepository>
   </distributionManagement>
 
   <build>
