@@ -84,47 +84,11 @@
 
   <distributionManagement>
     <repository>
-      <id>ossrh</id>
-      <name>Central Repository OSSRH</name>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/opentracing-contrib/java-ejb</url>
     </repository>
   </distributionManagement>
-
-  <build>
-    <pluginManagement>
-      <plugins>
-        <!-- mvn -N io.takari:maven:wrapper -Dmaven=3.5.0 -->
-        <plugin>
-          <groupId>io.takari</groupId>
-          <artifactId>maven</artifactId>
-          <version>${version.io.takari-maven}</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-
-    <plugins>
-      <plugin>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>${version.maven-release-plugin}</version>
-        <configuration>
-          <useReleaseProfile>false</useReleaseProfile>
-          <releaseProfiles>release</releaseProfiles>
-          <autoVersionSubmodules>true</autoVersionSubmodules>
-          <tagNameFormat>@{project.version}</tagNameFormat>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>io.zipkin.centralsync-maven-plugin</groupId>
-        <artifactId>centralsync-maven-plugin</artifactId>
-        <version>${version.io.zikin.centralsync-maven-plugin}</version>
-        <configuration>
-          <subject>opentracing</subject>
-          <repo>maven</repo>
-          <packageName>opentracing-ejb</packageName>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 
   <profiles>
     <profile>
