@@ -1,6 +1,16 @@
 name: Java CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.ref_name }}-ci
+  cancel-in-progress: true
 
 jobs:
   build:
