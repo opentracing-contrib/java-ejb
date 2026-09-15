@@ -43,7 +43,7 @@
 
     <!-- plugins -->
     <version.maven-release-plugin>2.5.3</version.maven-release-plugin>
-    <version.maven-source-plugin>3.0.1</version.maven-source-plugin>
+    <version.maven-source-plugin>3.4.0</version.maven-source-plugin>
     <version.maven-javadoc-plugin>2.10.4</version.maven-javadoc-plugin>
     <version.io.takari-maven>0.3.4</version.io.takari-maven>
     <version.io.zikin.centralsync-maven-plugin>0.1.0</version.io.zikin.centralsync-maven-plugin>
