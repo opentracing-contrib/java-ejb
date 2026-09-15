@@ -21,3 +21,21 @@ jobs:
 
       - name: Submit dependency graph
         uses: advanced-security/maven-dependency-submission-action@v5
+
+  release-notes:
+    name: Create/Update release notes
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
+    if: ${{ github.event_name != 'pull_request' }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      - name: Create/Update Draft
+        uses: lucacome/draft-release@v2.2.1
+        with:
+          minor-label: "enhancement"
+          major-label: "change"
+          publish: ${{ github.ref_type == 'tag' }}
+          collapse-after: 50
