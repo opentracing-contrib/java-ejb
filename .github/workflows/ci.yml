@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v7
@@ -41,7 +41,7 @@ jobs:
     name: Deploy snapshot
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       packages: write
@@ -78,12 +78,11 @@ jobs:
           publish: ${{ github.ref_type == 'tag' }}
           collapse-after: 50
 
-
   publish:
     name: Publish release
     if: github.event_name == 'push' && github.ref_type == 'tag'
     needs: [build, release-notes]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       packages: write
