@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     permissions:
       contents: write
     steps:
@@ -43,7 +43,7 @@ jobs:
     name: Deploy snapshot
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: build
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     permissions:
       contents: read
       packages: write
@@ -66,7 +66,7 @@ jobs:
     name: Create/Update release notes
     permissions:
       contents: write
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     if: ${{ github.event_name != 'pull_request' }}
     steps:
       - name: Checkout Repository
@@ -84,7 +84,7 @@ jobs:
     name: Publish release
     if: github.event_name == 'push' && github.ref_type == 'tag'
     needs: [build, release-notes]
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     permissions:
       contents: read
       packages: write
